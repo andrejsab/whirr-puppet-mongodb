@@ -120,8 +120,9 @@ package { 'php5':
     require => Package[$package],
   }
   exec {" restart_apache":
-    command => "sudo service apache2 restart",
-       require => Package["apache2"],
+    command => " /etc/init.d/apache2 restart",
+    require => Package["apache2"],
+    path => "/etc/init.d",
   }
 
 }
