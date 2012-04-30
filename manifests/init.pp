@@ -114,10 +114,11 @@ package { 'php5':
     command => 'mkdir -p ${rockmongo_dir}',
     creates => $rockmongo_dir,
     require => exec["download_rockmongo"],
+    path    => ["/usr/bin", "/usr/sbin"],
   }  
 
   exec { "unzip  -xf /home/administrator/${rockmongo_zip}":
-  cwd     => $rockmongo_dir,
+   cwd     => $rockmongo_dir,
    path    => ["/usr/bin", "/usr/sbin"]
 }
 
