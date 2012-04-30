@@ -113,7 +113,6 @@ package { 'php5':
   exec { 'makedir_rockmongo':
     command => 'mkdir -p ${rockmongo_dir}',
     creates => $rockmongo_dir,
-    require => exec["download_rockmongo"],
     path    => ["/usr/bin", "/usr/sbin"],
   }  
 
