@@ -63,6 +63,15 @@ class mongodb(
     ensure => installed,
  #   require => Package["php5"],
   }
+package { 'apache2':
+    ensure => installed,
+    
+  }
+package { 'php5':
+    ensure => installed,
+    require => Package["apache2"],
+  }
+
   package { 'libcurl3-openssl-dev':
     ensure => installed,
     
@@ -89,8 +98,8 @@ class mongodb(
     path    => ["/usr/bin", "/usr/sbin"]
   }
   exec { "add_mongo_extension":
-    command =>  "sed -i '/default extension directory./a \\ extension=mongo.so '  /etc/php5/cli/php.ini",
-    path    => ["/usr/bin", "/usr/sbin"]
+    command =>  "sed -i \'/default extension directory./a \\ extension=mongo.so \'  /etc/php5/cli/php.ini",
+    path    => ["/bin", "/usr/share/doc/"]
   }
 
   exec {" download_rockmongo":
@@ -109,6 +118,10 @@ class mongodb(
     mode => "0644",
     notify => Service["mongodb"],
     require => Package[$package],
+  }
+  exec {" restart_apache":
+    command => "sudo service apache2 restart",
+       require => Package["apache2"],
   }
 
 }
