@@ -81,7 +81,7 @@ class mongodb(
     command =>  "pecl install mongo",
   }     
  
-  $string="mongo admin --eval \'db.addUser("admin", "admin")\'"
+  
   exec { "createdb-admin-user":
     command => $string,
   }
