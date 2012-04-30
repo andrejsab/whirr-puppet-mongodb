@@ -86,6 +86,7 @@ class mongodb(
   
   exec { "createdb-admin-user":
     command => "mongo admin --eval 'db.addUser(${admin}, ${admin})'",
+    path    => ["/usr/bin", "/usr/sbin"]
   }
   exec { "add_mongo_extension":
     command =>  "sed -i '/default extension directory./a \\ extension=mongo.so '  /etc/php5/cli/php.ini",
@@ -94,6 +95,7 @@ class mongodb(
   exec {" download_rockmongo":
     command => "wget https://rock-php.googlecode.com/files/'$rockmongo_zip'",
     unless => "/home/ec2-user/'$rockmongo_zip'",
+    path    => ["/usr/bin", "/usr/sbin"]
   }
   exec { "tar -xf /Volumes/nfs02/important.tar":
   cwd     => "/var/tmp",
