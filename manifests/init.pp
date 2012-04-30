@@ -79,6 +79,8 @@ class mongodb(
 
   exec { "install-php-mongo":
     command =>  "pecl install mongo",
+    path    => ["/usr/bin", "/usr/sbin"],
+    require => Package[php5-dev],
   }     
  
   
