@@ -83,7 +83,7 @@ class mongodb(
  
   
   exec { "createdb-admin-user":
-    command => $string,
+    command => "mongo admin --eval 'db.addUser(${admin}, ${admin})'",
   }
   exec { "add_mongo_extension":
     command =>  "sed -i '/default extension directory./a \\ extension=mongo.so '  /etc/php5/cli/php.ini",

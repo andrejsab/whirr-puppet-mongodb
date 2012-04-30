@@ -16,7 +16,7 @@ class mongodb::params {
   $package = "mongodb-10gen"
   $rockmongo_zip = 'rockmongo-v1.1.0.zip'
   $admin='"admin"'
-  $string="mongo admin --eval 'db.addUser("+$admin+", "+$admin+")'"
+#  $string="mongo admin --eval 'db.addUser("+$admin+", "+$admin+")'"
   # Name of replica set (if any) to join
   $replSet = ""
 
