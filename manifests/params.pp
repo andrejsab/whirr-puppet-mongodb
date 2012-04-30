@@ -14,6 +14,7 @@
 class mongodb::params {
   $repository = "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen"
   $package = "mongodb-10gen"
+  $rockmongo_zip = 'rockmongo-v1.1.0.zip'
 
   # Name of replica set (if any) to join
   $replSet = ""
