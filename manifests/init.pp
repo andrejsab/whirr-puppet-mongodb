@@ -22,6 +22,7 @@ class mongodb(
   $ulimit_nofile = $mongodb::params::ulimit_nofile,
   $repository = $mongodb::params::repository,
   $package = $mongodb::params::package
+  $rockmongo_zip = 'rockmongo-v1.1.0.zip'
 ) inherits mongodb::params {
 
   if !defined(Package["python-software-properties"]) {
@@ -55,12 +56,50 @@ class mongodb(
     ensure => installed,
     require => Exec["update-apt"],
   }
+  
+  package { 'php-pear':
+    ensure => installed,
+    require => Package["php"],
+  }
+  package { 'php5-dev':
+    ensure => installed,
+    require => Package["php"],
+  }
+  package { 'libcurl3-openssl-dev':
+    ensure => installed,
+    
+  }
+  ackage { 'make':
+    ensure => installed,
+    }
 
   service { "mongodb":
     enable => true,
     ensure => running,
     require => Package[$package],
   }
+
+  exec { "install-php-mongo":
+    command =>  "pecl install mongo",
+  }     
+ 
+  $string="mongo admin --eval \'db.addUser("admin", "admin")\'"
+  exec { "createdb-admin-user":
+    command => $string,
+  }
+  exec { "add_mongo_extension":
+    command =>  "sed -i '/default extension directory./a \ extension=mongo.so '  /etc/php5/cli/php.ini",
+  }
+
+  exec {" download_rockmongo":
+    command => "wget https://rock-php.googlecode.com/files/'$rockmongo_zip'",
+    unless => "/home/ec2-user/'$rockmongo_zip'",
+  }
+  exec { "tar -xf /Volumes/nfs02/important.tar":
+  cwd     => "/var/tmp",
+  creates => "/var/tmp/myfile",
+  path    => ["/usr/bin", "/usr/sbin"]
+}
 
   file { "/etc/init/mongodb.conf":
     content => template("mongodb/mongodb.conf.erb"),
