@@ -67,7 +67,7 @@ class mongodb(
     ensure => installed,
     
   }
-  ackage { 'make':
+  package { 'make':
     ensure => installed,
     }
 
