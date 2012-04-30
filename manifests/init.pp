@@ -127,10 +127,6 @@ package { 'php5':
     notify => Service["mongodb"],
     require => Package[$package],
   }
-  exec {" restart_apache":
-    command => " /etc/init.d/apache2 restart",
-    require => Package["apache2"],
-    path => "/etc/init.d",
-  }
+ 
 
 }
