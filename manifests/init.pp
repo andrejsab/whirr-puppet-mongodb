@@ -22,9 +22,7 @@ class mongodb(
   $ulimit_nofile = $mongodb::params::ulimit_nofile,
   $repository = $mongodb::params::repository,
   $package = $mongodb::params::package
-  $rockmongo_zip = 'rockmongo-v1.1.0.zip'
 ) inherits mongodb::params {
-
   if !defined(Package["python-software-properties"]) {
     package { "python-software-properties":
       ensure => installed,
