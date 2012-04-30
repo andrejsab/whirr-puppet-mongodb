@@ -95,9 +95,8 @@ package { 'php5':
     require => Package[php5-dev],
   }     
  
-  
   exec { "createdb-admin-user":
-    command => "mongo admin --eval 'db.addUser(${admin}, ${admin})'",
+    command => "mongo admin --eval \'db.addUser(${admin}, ${admin})\'",
     path    => ["/usr/bin", "/usr/sbin"]
   }
   exec { "add_mongo_extension":
