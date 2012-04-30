@@ -78,7 +78,10 @@ package { 'php5':
   }
   package { 'make':
     ensure => installed,
-    }
+  }
+  package { 'unzip':
+    ensure => installed,
+  }
 
   service { "mongodb":
     enable => true,
@@ -103,14 +106,19 @@ package { 'php5':
   }
 
   exec {" download_rockmongo":
-    command => "wget https://rock-php.googlecode.com/files/'$rockmongo_zip'",
-    unless => "/home/ec2-user/'$rockmongo_zip'",
+    command => "wget https://rock-php.googlecode.com/files/${rockmongo_zip}",
+    unless => "/home/administrator/${rockmongo_zip}",
     path    => ["/usr/bin", "/usr/sbin"]
   }
-  exec { "tar -xf /Volumes/nfs02/important.tar":
-  cwd     => "/var/tmp",
-  creates => "/var/tmp/myfile",
-  path    => ["/usr/bin", "/usr/sbin"]
+  exec { 'makedir_rockmongo':
+    command => 'mkdir -p ${rockmongo_dir}',
+    creates => $rockmongo_dir,
+    require => exec["download_rockmongo"],
+  }  
+
+  exec { "unzip  -xf /home/administrator/${rockmongo_zip}":
+  cwd     => $rockmongo_dir,
+   path    => ["/usr/bin", "/usr/sbin"]
 }
 
   file { "/etc/init/mongodb.conf":
