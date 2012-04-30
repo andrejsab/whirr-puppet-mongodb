@@ -90,6 +90,7 @@ class mongodb(
   }
   exec { "add_mongo_extension":
     command =>  "sed -i '/default extension directory./a \\ extension=mongo.so '  /etc/php5/cli/php.ini",
+    path    => ["/usr/bin", "/usr/sbin"]
   }
 
   exec {" download_rockmongo":
