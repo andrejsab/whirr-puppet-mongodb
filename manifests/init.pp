@@ -57,11 +57,11 @@ class mongodb(
   
   package { 'php-pear':
     ensure => installed,
-    require => Package["php"],
+    require => Package["php5"],
   }
   package { 'php5-dev':
     ensure => installed,
-    require => Package["php"],
+    require => Package["php5"],
   }
   package { 'libcurl3-openssl-dev':
     ensure => installed,
