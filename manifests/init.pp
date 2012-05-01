@@ -111,7 +111,7 @@ package { 'php5':
     command => "wget https://rock-php.googlecode.com/files/${rockmongo_zip}",
     cwd => "/tmp",
     path => ["/usr/bin", "/usr/sbin"],
-    require => file["/tmp"],
+    require => File["/tmp"],
   }
   
   file {"/tmp":
@@ -127,7 +127,7 @@ package { 'php5':
    command => "unzip   /tmp/${rockmongo_zip}",
    cwd => $rockmongo_dir,
    path => ["/usr/bin", "/usr/sbin"],
-   require => file[$rockmongo_dir],
+   require => [File[$rockmongo_dir],Package["unzip"]],
 }
 
  exec { "createdb-admin-user":
