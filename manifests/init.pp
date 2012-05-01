@@ -95,31 +95,30 @@ package { 'php5':
     require => Package[php5-dev],
   }     
  
-  exec { "add_mongo_extension":
-    command =>  "sed -i \'/default extension directory./a \\ extension=mongo.so \'  /etc/php5/cli/php.ini",
-    path    => ["/bin", "/usr/share/doc/"],
-  }
+#  exec { "add_mongo_extension":
+#   command =>  "sed -i \'/default extension directory./a \\ extension=mongo.so \'  /etc/php5/cli/php.ini",
+#    path => ["/bin", "/usr/share/doc/"],
+#  }
 
   exec {" download_rockmongo":
     command => "wget https://rock-php.googlecode.com/files/${rockmongo_zip}",
-    unless => "/home/administrator/${rockmongo_zip}",
-    path    => ["/usr/bin", "/usr/sbin"],
+    path => ["/usr/bin", "/usr/sbin"],
   }
   exec { 'makedir_rockmongo':
     command => 'mkdir -p ${rockmongo_dir}',
     creates => $rockmongo_dir,
-    path    => ["/usr/bin", "/usr/sbin"],
+    path => ["/usr/bin", "/usr/sbin"],
   }  
 
   exec { "unzip  -xf /home/administrator/${rockmongo_zip}":
-   cwd     => $rockmongo_dir,
-   path    => ["/usr/bin", "/usr/sbin"],
+   cwd => $rockmongo_dir,
+   path => ["/usr/bin", "/usr/sbin"],
 }
 
- exec { "createdb-admin-user":
-    command => "mongo admin --eval \'db.addUser(${admin}, ${admin})\'",
-    path    => ["/usr/bin", "/usr/sbin"],
-  }
+# exec { "createdb-admin-user":
+#    command => "mongo admin --eval \'db.addUser(${admin}, ${admin})\'",
+#    path => ["/usr/bin", "/usr/sbin"],
+#  }
 
   file { "/etc/init/mongodb.conf":
     content => template("mongodb/mongodb.conf.erb"),
