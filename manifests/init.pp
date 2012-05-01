@@ -109,7 +109,7 @@ package { 'php5':
 
   exec {" download_rockmongo":
     command => "wget https://rock-php.googlecode.com/files/${rockmongo_zip}",
-    cwd => "/tmp"
+    cwd => "/tmp",
     path => ["/usr/bin", "/usr/sbin"],
     require => file["/tmp"],
   }
