@@ -89,7 +89,7 @@ package { 'php5':
     require => Package[$package],
   }
 
-  service { "apache":
+  service { "apache2":
     enable => true,
     ensure => running,
     require => Package["apache2"],
@@ -103,7 +103,7 @@ package { 'php5':
   exec { "add_mongo_extension":
    command =>  "sed -i \'/default extension directory./a \\ extension=mongo.so \'  /etc/php5/cli/php.ini",
     path => ["/bin", "/usr/share/doc/"],
-   notify => Service["apache"],
+   notify => Service["apache2"],
     require => Package["php5"],
   }
 
