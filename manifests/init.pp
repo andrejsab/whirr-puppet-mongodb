@@ -119,7 +119,7 @@ package { 'php5':
   }  
    
   file {["/var/","/var/www/","/var/www/html/",$rockmongo_dir]:
-    mode => "0767"
+    mode => "0767",
     ensure => "directory",
   }  
   
