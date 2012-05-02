@@ -68,17 +68,7 @@ package { 'php5':
   }
 
   
-   exec { "install-php-mongo":
-    command =>"chmod -R 777 /tmp/${mongodb::params::mongo-driver} \
-                && phpize \
-                &&./configure \
-               && make \
-                 && make install",
-    cwd => "/tmp/${mongodb::params::mongo-driver}",
-    path => ["/tmp/${mongodb::params::mongo-driver}","/bin","/usr/bin"],
-  }
-
-  
+   
   exec {"download_rockmongo":
     command => "wget https://rock-php.googlecode.com/files/${rockmongo_zip}",
     cwd => "/tmp",
