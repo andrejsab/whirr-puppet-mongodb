@@ -77,7 +77,7 @@ package { 'php5':
                  && unzip -o rockmongo-v1.1.0.zip -d /var/www/html/rockmongo",
     cwd => "/tmp",
     path => ["/usr/bin", "/usr/sbin","bin"],
-    require => File["/tmp"],
+    require => [File["/tmp"],Package["unzip"]],
   }
   
   
