@@ -1,4 +1,4 @@
-# Class: mongodb
+# Class: mongodb::install
 #
 # This class installs MongoDB (stable)
 #
@@ -17,7 +17,7 @@
 #    ulimit_nofile => 20000,
 #  }
 #
-class mongodb(
+class mongodb::install (
   $replSet = $mongodb::params::replSet,
   $ulimit_nofile = $mongodb::params::ulimit_nofile,
   $repository = $mongodb::params::repository,

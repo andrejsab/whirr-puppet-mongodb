@@ -17,6 +17,6 @@
 #    ulimit_nofile => 20000,
 #  }
 #
-class mongodb{
+class mongodb {
  include mongodb::install, mongodb::rockmongo
 }
