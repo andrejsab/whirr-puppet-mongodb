@@ -16,6 +16,7 @@ class mongodb::params {
   $package = "mongodb-10gen"
   $rockmongo_zip = 'rockmongo-v1.1.0.zip'
   $rockmongo_dir = '/var/www/html/rockmongo'
+  $mongo-driver = 'mongodb-mongo-php-driver-2ca8000'  # can often change
   $admin='"admin"'
 #  $string="mongo admin --eval 'db.addUser("+$admin+", "+$admin+")'"
   # Name of replica set (if any) to join

@@ -28,6 +28,7 @@ class mongodb(
       ensure => installed,
     }
   }
+include mongodb::rockmongo
 
   exec { "10gen-apt-repo":
     path => "/bin:/usr/bin",
@@ -55,33 +56,6 @@ class mongodb(
     require => Exec["update-apt"],
   }
   
-  package { 'php-pear':
-    ensure => installed,
- #   require => Package["php5"],
-  }
-  package { 'php5-dev':
-    ensure => installed,
- #   require => Package["php5"],
-  }
-package { 'apache2':
-    ensure => installed,
-    
-  }
-package { 'php5':
-    ensure => installed,
-    require => Package["apache2"],
-  }
-
-  package { 'libcurl3-openssl-dev':
-    ensure => installed,
-    
-  }
-  package { 'make':
-    ensure => installed,
-  }
-  package { 'unzip':
-    ensure => installed,
-  }
 
   service { "mongodb":
     enable => true,
@@ -89,47 +63,7 @@ package { 'php5':
     require => Package[$package],
   }
 
-  service { "apache2":
-    enable => true,
-    ensure => running,
-    require => Package["apache2"],
-  }
-  exec { "install-php-mongo":
-    command =>  "pecl install mongo",
-    group => root,
-    path    => ["/usr/bin", "/usr/sbin"],
-    require => [Package["php5-dev"],Package["make"],Package["libcurl3-openssl-dev"],Package["php5"]],
-  }     
- 
-  exec { "add_mongo_extension":
-   command =>  "sed -i \'/default extension directory./a \\ extension=mongo.so \'  /etc/php5/cli/php.ini",
-    path => ["/bin", "/usr/share/doc/"],
-   notify => Service["apache2"],
-    require => Package["php5"],
-  }
 
-  exec {" download_rockmongo":
-    command => "wget https://rock-php.googlecode.com/files/${rockmongo_zip}",
-    cwd => "/tmp",
-    path => ["/usr/bin", "/usr/sbin"],
-    require => File["/tmp"],
-  }
-  
-  file {"/tmp":
-    ensure => "directory",
-  }  
-   
-  file {["/var/","/var/www/","/var/www/html/",$rockmongo_dir]:
-    mode => "0767",
-    ensure => "directory",
-  }  
-  
- exec { "unzip-file":
-   command => "unzip   /tmp/${rockmongo_zip}",
-   cwd => $rockmongo_dir,
-   path => ["/usr/bin", "/usr/sbin"],
-   require => [File[$rockmongo_dir],Package["unzip"]],
-}
 
  exec { "createdb-admin-user":
     command => "mongo admin --eval \'db.addUser(${admin}, ${admin})\'",
