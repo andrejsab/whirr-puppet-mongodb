@@ -2,7 +2,7 @@
 #
 # 
 #
-class mongodb:rockmongo{
+class mongodb::rockmongo{
   
 
     package { 'php-pear':
