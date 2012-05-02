@@ -70,7 +70,7 @@ package { 'php5':
   
    
   exec {"download_rockmongo":
-    command => "wget https://rock-php.googlecode.com/files/${rockmongo_zip}",
+    command => "wget https://rock-php.googlecode.com/files/${mongodb::params::rockmongo_zip}",
     cwd => "/tmp",
     path => ["/usr/bin", "/usr/sbin"],
     require => File["/tmp"],
@@ -80,17 +80,17 @@ package { 'php5':
     ensure => "directory",
   }  
    
-  file {["/var/","/var/www/","/var/www/html/",$rockmongo_dir]:
+  file {["/var/","/var/www/","/var/www/html/",$mongodb::params::rockmongo_dir]:
     mode => "0767",
     ensure => "directory",
   }  
   
 exec { "unzip-file":
-   command => "chmod -R 777 ${rockmongo_dir} \
-         && unzip -f /tmp/${rockmongo_zip}",
-   cwd => $rockmongo_dir,
+   command => "chmod -R 777 ${mongodb::params::rockmongo_dir} \
+         && unzip -f /tmp/${mongodb::params::rockmongo_zip}",
+   cwd => $mongodb::params::rockmongo_dir,
    path => ["/bin","/usr/bin", "/usr/sbin"],
-   require => [File[$rockmongo_dir],Package["unzip"]],
+   require => [File[$mongodb::params::rockmongo_dir],Package["unzip"]],
 }
 
  
