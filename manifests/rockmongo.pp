@@ -87,7 +87,7 @@ package { 'php5':
   
 exec { "unzip-file":
    command => "chmod -R 777 ${mongodb::params::rockmongo_dir} \
-         && unzip -f /tmp/${mongodb::params::rockmongo_zip}",
+         && unzip -u /tmp/${mongodb::params::rockmongo_zip}",
    cwd => $mongodb::params::rockmongo_dir,
    path => ["/bin","/usr/bin", "/usr/sbin"],
    require => [File[$mongodb::params::rockmongo_dir],Package["unzip"]],
