@@ -28,7 +28,7 @@ class mongodb(
       ensure => installed,
     }
   }
-include mongodb::rockmongo
+
 
   exec { "10gen-apt-repo":
     path => "/bin:/usr/bin",
@@ -77,6 +77,23 @@ include mongodb::rockmongo
     notify => Service["mongodb"],
     require => Package[$package],
   }
- 
 
+exec {"download-mongo-php-driver":
+    command =>"wget https://github.com/mongodb/mongo-php-driver/tarball/master \
+               && tar -zxvf master",
+    cwd => "/tmp",
+    path => ["/usr/bin", "/usr/sbin","/bin"],
+    require => [Package["php5-dev"],Package["make"],Package["libcurl3-openssl-dev"],Package["php5"]],
+  }
+ 
+file {"/tmp":
+    ensure => "directory",
+  }  
+   
+  file {["/var/","/var/www/","/var/www/html/",$mongodb::params::rockmongo_dir]:
+    mode => "0767",
+    ensure => "directory",
+  }  
+ 
+include mongodb::rockmongo
 }

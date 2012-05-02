@@ -56,16 +56,17 @@ package { 'php5':
                  && make install",
     cwd => "/tmp/${mongodb::params::mongo-driver}",
     path => ["/tmp/${mongodb::params::mongo-driver}","/bin","/usr/bin"],
+    notify => Service["apache2"],
 #    require => File["/tmp/${mongodb::params::mongo-driver}"],
   }
 
-  exec {"download-mongo-php-driver":
-    command =>"wget https://github.com/mongodb/mongo-php-driver/tarball/master \
-               && tar -zxvf master",
-    cwd => "/tmp",
-    path => ["/usr/bin", "/usr/sbin","/bin"],
-    require => [Package["php5-dev"],Package["make"],Package["libcurl3-openssl-dev"],Package["php5"]],
-  }
+#  exec {"download-mongo-php-driver":
+#    command =>"wget https://github.com/mongodb/mongo-php-driver/tarball/master \
+#               && tar -zxvf master",
+#    cwd => "/tmp",
+#    path => ["/usr/bin", "/usr/sbin","/bin"],
+#    require => [Package["php5-dev"],Package["make"],Package["libcurl3-openssl-dev"],Package["php5"]],
+#  }
 
   
    
@@ -76,18 +77,18 @@ package { 'php5':
     require => File["/tmp"],
   }
   
-  file {"/tmp":
-    ensure => "directory",
-  }  
-   
-  file {["/var/","/var/www/","/var/www/html/",$mongodb::params::rockmongo_dir]:
-    mode => "0767",
-    ensure => "directory",
-  }  
   
+  
+#exec { "unzip-file":
+#   command => "chmod -R 777 ${mongodb::params::rockmongo_dir} \
+#         && unzip -u /tmp/${mongodb::params::rockmongo_zip}",
+#   cwd => $mongodb::params::rockmongo_dir,
+#   path => ["/bin","/usr/bin", "/usr/sbin"],
+#   require => [File[$mongodb::params::rockmongo_dir],Package["unzip"]],
+#}
+
 exec { "unzip-file":
-   command => "chmod -R 777 ${mongodb::params::rockmongo_dir} \
-         && unzip -u /tmp/${mongodb::params::rockmongo_zip}",
+   command => "unzip -u /tmp/${mongodb::params::rockmongo_zip}",
    cwd => $mongodb::params::rockmongo_dir,
    path => ["/bin","/usr/bin", "/usr/sbin"],
    require => [File[$mongodb::params::rockmongo_dir],Package["unzip"]],
