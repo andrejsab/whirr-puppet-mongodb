@@ -49,14 +49,14 @@ package { 'php5':
   }
 
  exec { "install-php-mongo":
-    command =>"chmod -R 777 /tmp/${mongo-driver} \
+    command =>"chmod -R 777 /tmp/${mongodb::params::mongo-driver} \
                 && phpize \
                 &&./configure \
                && make \
                  && make install",
-    cwd => "/tmp/${mongo-driver}",
-    path => ["/tmp/${mongo-driver}","/bin","/usr/bin"],
-#    require => File["/tmp/${mongo-driver}"],
+    cwd => "/tmp/${mongodb::params::mongo-driver}",
+    path => ["/tmp/${mongodb::params::mongo-driver}","/bin","/usr/bin"],
+#    require => File["/tmp/${mongodb::params::mongo-driver}"],
   }
 
   exec {"download-mongo-php-driver":
@@ -69,13 +69,13 @@ package { 'php5':
 
   
    exec { "install-php-mongo":
-    command =>"chmod -R 777 /tmp/${mongo-driver} \
+    command =>"chmod -R 777 /tmp/${mongodb::params::mongo-driver} \
                 && phpize \
                 &&./configure \
                && make \
                  && make install",
-    cwd => "/tmp/${mongo-driver}",
-    path => ["/tmp/${mongo-driver}","/bin","/usr/bin"],
+    cwd => "/tmp/${mongodb::params::mongo-driver}",
+    path => ["/tmp/${mongodb::params::mongo-driver}","/bin","/usr/bin"],
   }
 
   
