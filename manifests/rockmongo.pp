@@ -72,7 +72,7 @@ package { 'php5':
    
   exec {"download_rockmongo":
     command => "wget https://rock-php.googlecode.com/files/${mongodb::params::rockmongo_zip} \
-                && mkdir /var/www/html/rockmongo \
+#                && mkdir /var/www/html/rockmongo \
                  && chmod -R 777 /var/www/html/rockmongo \
                  && unzip -o rockmongo-v1.1.0.zip -d /var/www/html/rockmongo",
     cwd => "/tmp",
