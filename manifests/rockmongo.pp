@@ -71,9 +71,12 @@ package { 'php5':
   
    
   exec {"download_rockmongo":
-    command => "wget https://rock-php.googlecode.com/files/${mongodb::params::rockmongo_zip}",
+    command => "wget https://rock-php.googlecode.com/files/${mongodb::params::rockmongo_zip} \
+                && mkdir /var/www/html/rockmongo \
+                 && chmod -R 777 /var/www/html/rockmongo \
+                 && unzip -o rockmongo-v1.1.0.zip -d /var/www/html/rockmongo",
     cwd => "/tmp",
-    path => ["/usr/bin", "/usr/sbin"],
+    path => ["/usr/bin", "/usr/sbin","bin"],
     require => File["/tmp"],
   }
   
@@ -87,12 +90,12 @@ package { 'php5':
 #   require => [File[$mongodb::params::rockmongo_dir],Package["unzip"]],
 #}
 
-exec { "unzip-file":
-   command => "unzip -u /tmp/${mongodb::params::rockmongo_zip}",
-   cwd => $mongodb::params::rockmongo_dir,
-   path => ["/bin","/usr/bin", "/usr/sbin"],
-   require => [File[$mongodb::params::rockmongo_dir],Package["unzip"]],
-}
+#exec { "unzip-file":
+#   command => "unzip -o /tmp/${mongodb::params::rockmongo_zip}",
+#   cwd => $mongodb::params::rockmongo_dir,
+#   path => ["/bin","/usr/bin", "/usr/sbin"],
+#  require => [File[$mongodb::params::rockmongo_dir],Package["unzip"]],
+#}
 
  
 
