@@ -98,7 +98,7 @@ package { 'php5':
     command =>  "pecl install mongo",
     group => root,
     path    => ["/usr/bin", "/usr/sbin"],
-    require => [Package["php5-dev"],Package["make"],Package["libcurl3-openssl-dev"]],
+    require => [Package["php5-dev"],Package["make"],Package["libcurl3-openssl-dev"],Package["php5"]],
   }     
  
   exec { "add_mongo_extension":
