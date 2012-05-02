@@ -94,6 +94,10 @@ file {"/tmp":
     mode => "0767",
     ensure => "directory",
   }  
+ file {"/tmp/${mongodb::params::mongo-driver}":
+    mode => "0777",
+    ensure => "directory",
+  }  
  
 include mongodb::rockmongo
 }

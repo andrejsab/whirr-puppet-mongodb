@@ -49,8 +49,7 @@ package { 'php5':
   }
 
  exec { "install-php-mongo":
-    command =>"chmod -R 777 /tmp/${mongodb::params::mongo-driver} \
-                && phpize \
+    command =>" phpize \
                 &&./configure \
                && make \
                  && make install",
