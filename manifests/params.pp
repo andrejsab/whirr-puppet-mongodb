@@ -18,6 +18,8 @@ class mongodb::params {
   $rockmongo_dir = '/var/www/html/rockmongo'
   $mongo-driver = 'mongodb-mongo-php-driver-2ca8000'  # can often change
   $admin='"admin"'
+  $ldr-user='"ldr-user"'
+  $sindice='"sindice"'
 #  $string="mongo admin --eval 'db.addUser("+$admin+", "+$admin+")'"
   # Name of replica set (if any) to join
   $replSet = ""

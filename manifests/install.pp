@@ -65,8 +65,9 @@ class mongodb::install (
 
 
 
- exec { "createdb-admin-user":
-    command => "mongo admin --eval \'db.addUser(${admin}, ${admin})\'",
+ exec { "createdb-user":
+    command => "mongo admin --eval \'db.addUser(${admin}, ${admin})\'
+                && mongo admin --eval \'db.addUser(${ldr-user}, ${sindice})\' ",
     path => ["/usr/bin", "/usr/sbin"],
     require => Package[$package],
   }
