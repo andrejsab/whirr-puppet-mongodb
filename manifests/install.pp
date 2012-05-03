@@ -80,7 +80,8 @@ class mongodb::install (
 
 exec {"download-mongo-php-driver":
     command =>"wget https://github.com/mongodb/mongo-php-driver/tarball/master \
-               && tar -zxvf master",
+               && tar -zxvf master \
+               && chmod -R 777 ${mongodb::params::mongo-driver} ",
     cwd => "/tmp",
     path => ["/usr/bin", "/usr/sbin","/bin"],
     require => [Package["php5-dev"],Package["make"],Package["libcurl3-openssl-dev"],Package["php5"]],
