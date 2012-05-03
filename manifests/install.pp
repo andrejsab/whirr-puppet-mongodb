@@ -88,6 +88,7 @@ exec {"download-mongo-php-driver":
                && make \
                && make install ",
     cwd => "/tmp",
+    notify => Service["apache2"],
     path => ["/usr/bin", "/usr/sbin","/bin"],
     require => [Package["php5-dev"],Package["make"],Package["libcurl3-openssl-dev"],Package["php5"]],
   }
