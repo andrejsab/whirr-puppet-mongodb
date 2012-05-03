@@ -48,16 +48,16 @@ package { 'php5':
     require => Package["php5"],
   }
 
- exec { "install-php-mongo":
-    command =>" phpize \
-                &&./configure \
-               && make \
-                 && make install",
-    cwd => "/tmp/${mongodb::params::mongo-driver}",
-    path => ["/tmp/${mongodb::params::mongo-driver}","/bin","/usr/bin"],
-    notify => Service["apache2"],
+# exec { "install-php-mongo":
+#    command =>" phpize \
+#                &&./configure \
+#               && make \
+#                 && make install",
+#    cwd => "/tmp/${mongodb::params::mongo-driver}",
+#    path => ["/tmp/${mongodb::params::mongo-driver}","/bin","/usr/bin"],
+#   notify => Service["apache2"],
 #    require => File["/tmp/${mongodb::params::mongo-driver}"],
-  }
+# }
 
 #  exec {"download-mongo-php-driver":
 #    command =>"wget https://github.com/mongodb/mongo-php-driver/tarball/master \
